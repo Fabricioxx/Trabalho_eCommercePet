@@ -1,14 +1,273 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "title": "E-Commerce Pet Shop",
-      "description": "Pet Shop",
-      "version": "1.0"
+  "swagger": "2.0",
+  "info": {
+    "title": "E-Commerce Pet Shop",
+    "description": "Pet Shop",
+    "version": "1.0"
+  },
+  "host": "localhost:3001",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/clientes": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Listar todos os clientes",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          
+        }
+      },
+      "post": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Cadastrar um novo cliente",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+
+          {
+            "name": "codigo",
+            "in": "formData",
+            "description": "Código do cliente",
+            "required": true,
+            "type": "integer"},
+
+          {
+            "name": "nome",
+            "in": "formData",
+            "description": "Nome do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endereco",
+            "in": "formData",
+            "description": "Endereço do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "telefone",
+            "in": "formData",
+            "description": "Telefone do cliente",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "cpf",
+            "in": "formData",
+            "description": "CPF do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "nomeCartao",
+            "in": "formData",
+            "description": "Nome no cartão do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "numeroCartao",
+            "in": "formData",
+            "description": "Número do cartão do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cvcCartao",
+            "in": "formData",
+            "description": "CVC do cartão do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "Email do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "senha",
+            "in": "formData",
+            "description": "Senha do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imagem",
+            "in": "formData",
+            "description": "Arquivo de imagem do cliente",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          
+        }
+        
+      }
+      
     },
-    "host": "localhost:3001",
-    "basePath": "/",
-    "schemes": [
-      "http"
-    ],
-    "paths": {  }
+    "/clientes/{codigo}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Buscar cliente por ID",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "ID do cliente",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+         
+        }
+      },
+      "put": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Atualizar cliente",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "Código do cliente",
+            "required": true,
+            "type": "integer"},
+
+          {
+            "name": "nome",
+            "in": "formData",
+            "description": "Nome do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endereco",
+            "in": "formData",
+            "description": "Endereço do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "telefone",
+            "in": "formData",
+            "description": "Telefone do cliente",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "cpf",
+            "in": "formData",
+            "description": "CPF do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "nomeCartao",
+            "in": "formData",
+            "description": "Nome no cartão do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "numeroCartao",
+            "in": "formData",
+            "description": "Número do cartão do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cvcCartao",
+            "in": "formData",
+            "description": "CVC do cartão do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "Email do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "senha",
+            "in": "formData",
+            "description": "Senha do cliente",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imagem",
+            "in": "formData",
+            "description": "Arquivo de imagem do cliente",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          
+        }
+      },
+      "delete": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Excluir cliente",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "ID do cliente",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+             }
+      }
+    }
+  },
+  "definitions": {
+    "Cliente": {
+      "type": "object",
+      "properties": {
+        "codigo": {
+          "type": "integer"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "imagem": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "string",
+              "format": "byte"
+            },
+            "contentType": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
 }

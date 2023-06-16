@@ -5,13 +5,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var cors = require('cors'); // cors - permite que uma aplicação acesse outra aplicação
+
 // swagger
 const swaggerUi = require('swagger-ui-express'),
 swaggerDocument = require('./swagger.json');
 
-
+// Rotas
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var clientesRouter = require('./routes/clientesRouter');
 
 var app = express();
 
@@ -24,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({credentials: true, origin: true})) //{credentials: true, origin: true} habilita o CORS para todas as origens e credenciais
 
 /// swagger
 app.use(
@@ -33,7 +36,8 @@ app.use(
 );
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/clientes', clientesRouter);
+//app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
