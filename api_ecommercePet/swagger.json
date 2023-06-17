@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "E-Commerce Pet Shop",
-    "description": "Pet Shop",
+    "description": "API para Pet Shop",
     "version": "1.0"
   },
   "host": "localhost:3001",
@@ -20,9 +20,7 @@
         "produces": [
           "application/json"
         ],
-        "responses": {
-          
-        }
+        "responses": {}
       },
       "post": {
         "tags": [
@@ -117,7 +115,6 @@
         }
         
       }
-      
     },
     "/clientes/{codigo}": {
       "get": {
@@ -134,9 +131,7 @@
             "type": "integer"
           }
         ],
-        "responses": {
-         
-        }
+        "responses": {}
       },
       "put": {
         "tags": [
@@ -240,8 +235,99 @@
             "type": "integer"
           }
         ],
-        "responses": {
-             }
+        "responses": {}
+      }
+    },
+    "/categorias": {
+      "get": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Listar todas as categorias",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {}
+      },
+      "post": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Cadastrar nova categoria",
+        "produces": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "categoria",
+            "in": "body",
+            "description": "Dados da categoria a serem salvos",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Categoria"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/categorias/{codigo}": {
+      "get": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Buscar categoria por ID",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "ID da categoria",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {}
+      },
+      "put": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Atualizar categoria",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "Código do cliente",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "categoria",
+            "in": "body",
+            "description": "Dados da categoria a serem atualizados",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Categoria"
+            }
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": [
+          "Categorias"
+        ],
+        "summary": "Excluir categoria",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "ID da categoria",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {}
       }
     }
   },
@@ -255,17 +341,43 @@
         "nome": {
           "type": "string"
         },
-        "imagem": {
-          "type": "object",
-          "properties": {
-            "data": {
-              "type": "string",
-              "format": "byte"
-            },
-            "contentType": {
-              "type": "string"
-            }
-          }
+        "endereco": {
+          "type": "string"
+        },
+        "telefone": {
+          "type": "integer"
+        },
+        "cpf": {
+          "type": "string"
+        },
+        "nomeCartao": {
+          "type": "string"
+        },
+        "numeroCartao": {
+          "type": "string"
+        },
+        "cvcCartao": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "senha": {
+          "type": "string"
+        }
+      }
+    },
+    "Categoria": {
+      "type": "object",
+      "properties": {
+        "codigo": {
+          "type": "integer"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
         }
       }
     }

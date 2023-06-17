@@ -11,9 +11,12 @@ var cors = require('cors'); // cors - permite que uma aplicação acesse outra a
 const swaggerUi = require('swagger-ui-express'),
 swaggerDocument = require('./swagger.json');
 
+
+
 // Rotas
 var indexRouter = require('./routes/index');
 var clientesRouter = require('./routes/clientesRouter');
+var categoriaRouter = require('./routes/categoriaRouter');
 
 var app = express();
 
@@ -37,6 +40,7 @@ app.use(
 
 app.use('/', indexRouter);
 app.use('/clientes', clientesRouter);
+app.use('/categorias', categoriaRouter);
 //app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
