@@ -329,6 +329,170 @@
         ],
         "responses": {}
       }
+    },
+    "/produtos": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "Retorna Produtos.",
+        "operationId": "GET - Produtos",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "tags": [
+          "Produtos"
+        ],
+        "produces": [
+          "multipart/form-data"
+        ],
+        "description": "Salva um novo produto.",
+        "operationId": "POST - Produto",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "formData",
+            "description": "Código do produto.",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "nome",
+            "in": "formData",
+            "description": "Nome do produto.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imagem",
+            "in": "formData",
+            "description": "Imagem do produto (dados em formato de buffer).",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "descricao",
+            "in": "formData",
+            "description": "Descrição do produto.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "preco",
+            "in": "formData",
+            "description": "Preço do produto.",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "categoria",
+            "in": "formData",
+            "description": "ID da categoria do produto.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "animal",
+            "in": "formData",
+            "description": "Animal do produto.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/produtos/{codigo}": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "description": "Retorna um produto pelo ID.",
+        "operationId": "GET - Produto por ID",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "ID do produto.",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {}
+      },
+      "put": {
+        "tags": [
+          "Produtos"
+        ],
+        "description": "Atualiza um produto pelo ID.",
+        "operationId": "PUT - Produto por ID",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "ID do produto.",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "nome",
+            "in": "formData",
+            "description": "Nome do produto.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "descricao",
+            "in": "formData",
+            "description": "Descrição do produto.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "preco",
+            "in": "formData",
+            "description": "Preço do produto.",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "categoria",
+            "in": "formData",
+            "description": "ID da categoria do produto.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imagem",
+            "in": "formData",
+            "description": "Imagem do produto (dados em formato de buffer).",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": [
+          "Produtos"
+        ],
+        "description": "Exclui um produto pelo ID.",
+        "operationId": "DELETE - Produto por ID",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "ID do produto.",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {}
+      }
     }
   },
   "definitions": {
@@ -380,6 +544,33 @@
           "type": "string"
         }
       }
+    },
+    "Produto": {
+      "type": "object",
+      "properties": {
+        "codigo": {
+          "type": "integer"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        },
+        "preco": {
+          "type": "number"
+        },
+        "categoria": {
+          "type": "string"
+        },
+        "animal": {
+          "type": "string"
+        },
+        "nota": {
+          "type": "number"
+        }
+      }
+
     }
   }
 }

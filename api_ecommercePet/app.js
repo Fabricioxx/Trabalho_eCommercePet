@@ -17,6 +17,7 @@ swaggerDocument = require('./swagger.json');
 var indexRouter = require('./routes/index');
 var clientesRouter = require('./routes/clientesRouter');
 var categoriaRouter = require('./routes/categoriaRouter');
+var produtosRouter = require('./routes/produtosRouter');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use(
 app.use('/', indexRouter);
 app.use('/clientes', clientesRouter);
 app.use('/categorias', categoriaRouter);
+app.use('/produtos', produtosRouter);
 //app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
