@@ -26,6 +26,9 @@ npx create-react-app front_ecommercePet
 npm install react-router-dom // para Rotas
 npm install bootstrap // usar bootstrap (index.js import 'bootstrap/dist/css/bootstrap.css';)
 
+npm i bootstrap-icons // bibliotecas de icones bootstrap
+
+
 npm start
 
 ```
