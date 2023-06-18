@@ -18,3 +18,14 @@
 http://localhost:3001/
 
 http://localhost:3001/api-docs (doc swagger)
+
+
+**frontend**
+```
+npx create-react-app front_ecommercePet
+npm install react-router-dom // para Rotas
+npm install bootstrap // usar bootstrap (index.js import 'bootstrap/dist/css/bootstrap.css';)
+
+npm start
+
+```
