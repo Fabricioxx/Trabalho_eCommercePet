@@ -493,6 +493,162 @@
         ],
         "responses": {}
       }
+    },
+    "/pedidos": {
+
+      "get": {
+        "tags": [
+          "Pedido"
+        ],
+        "summary": "Listar todas os pedidos",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {}
+      },
+      "post": {
+        "tags": ["Pedido"],
+        "summary": "Cadastrar nova pedido",
+        "produces": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "pedido",
+            "in": "body",
+            "description": "Dados do pedido a serem salvos",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pedido"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Pedido criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Pedido"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/{clienteId}": {
+      "get": {
+        "tags": ["Pedido"],
+        "summary": "Listar pedidos de um cliente",
+        "operationId": "listarPedidos",
+        "parameters": [
+          {
+            "name": "clienteId",
+            "in": "path",
+            "description": "ID do cliente",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de pedidos do cliente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Pedido"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/{clienteId}/{codigo}": {
+      "get": {
+        "tags": ["Pedido"],
+        "summary": "Buscar um pedido pelo código",
+        "operationId": "buscarPedido",
+        "parameters": [
+          {
+            "name": "clienteId",
+            "in": "path",
+            "description": "ID do cliente",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          },
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "Código do pedido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pedido encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Pedido"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pedidos/{clienteId}/{codigo}/{status}": {
+      "put": {
+        "tags": ["Pedido"],
+        "summary": "Editar o status de um pedido",
+        "operationId": "editarStatusPedido",
+        "parameters": [
+          {
+            "name": "clienteId",
+            "in": "path",
+            "description": "ID do cliente",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          },
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "Código do pedido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "status do pedido",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+        }
+      }
     }
   },
   "definitions": {
@@ -570,7 +726,37 @@
           "type": "number"
         }
       }
-
+    },
+    "Pedido": {
+      "type": "object",
+      "properties": {
+        "codigo": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "total": {
+          "type": "number"
+        },
+        "cliente": {
+          "type": "string"
+        },
+        "produto": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Aguardando Pagamento", "Faturado", "Enviado", "Cancelado"],
+          "default": "Aguardando Pagamento"
+        }
+      }
     }
   }
 }
+  
+
