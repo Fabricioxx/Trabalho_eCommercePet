@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function Header() {
+function Header(props) {
   const [currentUrl, setCurrentUrl] = useState("");
 
-  const [login, setLogin] = useState(false);
+  const { logado} = props;
+
+  const [login, setLogin] = useState(logado);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
