@@ -28,6 +28,8 @@ npm install bootstrap // usar bootstrap (index.js import 'bootstrap/dist/css/boo
 
 npm i bootstrap-icons // bibliotecas de icones bootstrap
 
+npm install react-bootstrap bootstrap // componentes prontos bootstrap
+
 
 npm start
 
