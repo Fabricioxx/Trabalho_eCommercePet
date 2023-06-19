@@ -17,6 +17,7 @@ export default function Loja() {
                         <Card />
                         <Card />
                         <Card />
+                        
 
                     </div>
                 </div>

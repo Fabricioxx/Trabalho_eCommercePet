@@ -1,0 +1,4 @@
+.scroll-container {
+    height: 300px; /* Defina a altura desejada */
+    overflow-y: auto;
+  }

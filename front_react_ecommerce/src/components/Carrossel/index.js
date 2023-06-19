@@ -1,7 +1,13 @@
 import React from "react";
+import { useState } from "react";
 
 export default function Carrossel() {
 
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const handleButtonClick = (index) => {
+    setActiveSlide(index);
+  };
 
   return (
     
@@ -13,31 +19,36 @@ export default function Carrossel() {
         data-bs-theme="light"
       >
         <div class="carousel-indicators">
-          <button
+        <button
             type="button"
             data-bs-target="#myCarousel"
             data-bs-slide-to="0"
-            class="active"
+            className={`active ${activeSlide === 0 ? "active" : ""}`}
             aria-label="Slide 1"
-            aria-current="true"
+            aria-current={activeSlide === 0 ? "true" : "false"}
+            onClick={() => handleButtonClick(0)}
           ></button>
           <button
             type="button"
             data-bs-target="#myCarousel"
             data-bs-slide-to="1"
+            className={activeSlide === 1 ? "active" : ""}
             aria-label="Slide 2"
-            class=""
+            aria-current={activeSlide === 1 ? "true" : "false"}
+            onClick={() => handleButtonClick(1)}
           ></button>
           <button
             type="button"
             data-bs-target="#myCarousel"
             data-bs-slide-to="2"
+            className={activeSlide === 2 ? "active" : ""}
             aria-label="Slide 3"
-            class=""
+            aria-current={activeSlide === 2 ? "true" : "false"}
+            onClick={() => handleButtonClick(2)}
           ></button>
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active">
+          <div class={activeSlide === 0 ? "carousel-item active": "carousel-item" }>
             <svg
               class="bd-placeholder-img"
               width="100%"
@@ -68,7 +79,7 @@ export default function Carrossel() {
               </div>
             </div>
           </div>
-          <div class="carousel-item">
+           <div class={activeSlide === 1 ? "carousel-item active": "carousel-item" }>
             <svg
               class="bd-placeholder-img"
               width="100%"
@@ -99,7 +110,7 @@ export default function Carrossel() {
               </div>
             </div>
           </div>
-          <div class="carousel-item">
+          <div class={activeSlide === 2 ? "carousel-item active": "carousel-item" }>
             <svg
               class="bd-placeholder-img"
               width="100%"
@@ -136,6 +147,7 @@ export default function Carrossel() {
           type="button"
           data-bs-target="#myCarousel"
           data-bs-slide="prev"
+          onClick={() => activeSlide === 0 ? handleButtonClick(2) : handleButtonClick(activeSlide - 1)}
         >
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
@@ -145,6 +157,8 @@ export default function Carrossel() {
           type="button"
           data-bs-target="#myCarousel"
           data-bs-slide="next"
+          onChange={""}
+          onClick={() => activeSlide === 2 ? handleButtonClick(0) : handleButtonClick(activeSlide + 1)}
         >
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
