@@ -45,7 +45,7 @@ function Header(props) {
     
               <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li>
-                  <Link to="#" className="nav-link px-2 link-secondary">
+                  <Link to="/" className="nav-link px-2 link-secondary">
                     Loja
                   </Link>
                 </li>
@@ -111,12 +111,12 @@ function Header(props) {
                   className={`dropdown-menu text-small ${dropdownOpen ? "show" : ""}`} data-popper-placement="top-start"  aria-labelledby="dropdownMenuButton"
                 >
                   <li>
-                    <Link className="dropdown-item"  to="#">
+                    <Link className="dropdown-item"  to="/login">
                       Login
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="#">
+                    <Link className="dropdown-item" to="/cadastrar">
                       Cadastrar
                     </Link>
                   </li>

@@ -1,8 +1,9 @@
 import React from "react";
 import "./style.css";
-import { Button } from "react-bootstrap";
+//import { Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
+import { Link } from 'react-router-dom';
 
 const datados = [
   {
@@ -88,7 +89,6 @@ export default function Cards(props) {
 
  // converte a imagem para base64
   function imagembase64(imagem){
-
     //Uint8Array - Array de 8 bits sem sinal
     const buffer = new Uint8Array(imagem.data.data);
     const blob = new Blob([buffer], { type: "image/jpeg" });
@@ -124,8 +124,9 @@ export default function Cards(props) {
                         <Card.Img style={{ width: "250px", height: "250px" }} variant="top" src={imagembase64(produto.imagem)} className="img-fluid" />
                         <Card.Body>
                           <Card.Title>{produto.nome}</Card.Title>
-                          <Card.Text className="text-truncate" >{produto.preco}</Card.Text>
-                          <Button variant="primary">detalhes</Button>
+                          <Card.Text className="text-truncate" > R$ {produto.preco}</Card.Text>
+                         {/* <Button variant="primary">detalhes</Button>*/} 
+                          <Link to={`/detalhes/${produto.codigo}`}>Detalhes</Link>
                         </Card.Body>
                       </Card>
                     </div>

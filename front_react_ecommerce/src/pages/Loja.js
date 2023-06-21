@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Carrossel from '../components/Carrossel'
 import Card from '../components/Card'
+import Title from '../components/Title';
 
 
 
@@ -30,7 +31,7 @@ export default function Loja() {
                 <div className="row">
                     <div className="col-12">
 
-                        <h1>Loja</h1>
+                        <Title title="Loja" />
                         <Carrossel />
                         <Card produtos={listProdutos}/>
                     </div>
