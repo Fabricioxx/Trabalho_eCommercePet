@@ -1,39 +1,62 @@
 import React, { useState } from "react";
-import Button from "../components/Button";
 import Title from "../components/Title";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
   const [error, setError] = useState(false);
+
+  const navigate = useNavigate(); // para redirecionar a pagina
 
   // para redirecionar a pagina apos o login
   function handleSubmit(event) {
     event.preventDefault();
-    const usuario = { email, password };
-    fetch("http://localhost:3001/login", {
+    
+    const bodyParam  = {
+      email: email,
+      senha: senha
+  }
+
+    fetch("http://localhost:3001/auth", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(usuario),
+      body: JSON.stringify(bodyParam), //stringify converte o objeto em string para ser enviado	
     })
       .then((response) => {
         if (!response.ok) {
+
+          alert("Não foi possível realizar o login");
+
+
           throw Error("Não foi possível realizar o login");
         }
+
         return response.json();
       })
-      .then((data) => {
-        localStorage.setItem("token", data.token);
-        // history.push("/");
+      .then((data) => { // se o login for realizado com sucesso o token é retornado
+
+        //localStorage - persiste o dados no navegador
+        localStorage.setItem("token", data.token); //salva o token no localstorage
+
+        alert("Login realizado com sucesso");
+
+        navigate("/loja");
+
+        //const token = localStorage.getItem("token"); //recupera o token do localstorage
+         
       })
       .catch((err) => {
         setError(true);
         console.error(err);
-      });
+
+      }).finally(() => {
+
+        setEmail("")
+        setSenha("")
+    })
   }
 
   return (
@@ -48,13 +71,14 @@ function Login() {
       cz-shortcut-listen="true"
     >
       <main class="form-signin w-100 m-auto d-flex justify-content-center">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div class="form-floating">
             <input
               type="email"
               class="form-control"
               id="floatingInput"
               placeholder="name@example.com"
+              value={email} onChange={(e) => { setEmail(e.target.value) }}
             />
             <label for="floatingInput">Email address</label>
           </div>
@@ -64,6 +88,7 @@ function Login() {
               class="form-control"
               id="floatingPassword"
               placeholder="Password"
+              value={senha} onChange={(e) => { setSenha(e.target.value) }}
             />
             <label for="floatingPassword">Password</label>
           </div>

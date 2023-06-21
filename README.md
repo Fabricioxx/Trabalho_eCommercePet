@@ -8,9 +8,13 @@
  npx express-generator --view=pug api_ecommercePet// Instalação no express
  npm install mongoose // MongoDB
  npm install nodemon // Instalação do nodemon - ODM para banco não relacional
- npm install cors //
- npm install swagger-ui-express -S //
+ npm install cors // para comunicação entre front e back
+ npm install swagger-ui-express -S // Documentação swagger
  npm install multer // upload
+ npm install bcryptjs // criptografia
+ npm install jsonwebtoken // token
+ 
+    
 
  npm run start 
 

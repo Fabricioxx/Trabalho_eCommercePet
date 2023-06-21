@@ -5,6 +5,7 @@ import Title from '../components/Title';
 
 
 
+
 function Detalhes() {
     const { codigo } = useParams();
   
