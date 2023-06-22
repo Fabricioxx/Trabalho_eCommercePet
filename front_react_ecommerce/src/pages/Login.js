@@ -42,6 +42,7 @@ function Login() {
         localStorage.setItem("token", data.token); //salva o token no localstorage
 
         alert("Login realizado com sucesso");
+        alert("Bem vindo(a) " + data.nome);
 
         navigate("/loja");
 

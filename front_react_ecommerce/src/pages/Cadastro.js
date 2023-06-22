@@ -1,37 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 
 function Cadastro() {
 
-
   const [formData, setFormData] = useState({
     nome: "",
-    email: "",
-    cpf: "",
+    enderec: "",
     telefone: "",
+    cpf: "",
+    email: "",
+    senha: "",
     numeroCartao: "",
-    validadeCartao: "",
+    nomeCartao: "",
     cvv: "",
-    plano: "",
   });
 
-  const [plan, setPlan] = useState("free");
+  //const [plan, setPlan] = useState("free");
 
   const [isFormChanged, setIsFormChanged] = useState(false);
 
-  formData.plano = plan;
+  //formData.plano = plan;
 
+  // pegar o valor do input e armazenar no state
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-
+  
     setIsFormChanged(true);
   };
+      
+  
 
+
+
+  
+ // enviar os dados do formulario para o backend
   const handleSubmit = (event) => {
    // event.preventDefault(); - estava dando erro ao usar ao clicar no componente button
 
@@ -39,20 +46,60 @@ function Cadastro() {
     const {
       nome,
       email,
+      senha,
       cpf,
       telefone,
       numeroCartao,
-      validadeCartao,
+      nomeCartao,
       cvv,
-      plano,
     } = formData;
 
-      formData.plano = plan;
+      //formData.plano = plan;
 
-    alert(
-      `Nome: ${nome}\nE-mail: ${email}\nCPF: ${cpf}\nTelefone: ${telefone}\nNúmero do cartão: ${numeroCartao}\nValidade do cartão: ${validadeCartao}\nCVV: ${cvv}\nPlano escolhido: ${plano}`
-    );
+    
+
+    fetch("http://localhost:3001/clientes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          alert("Não foi possível realizar o cadastro");
+          throw new Error("Não foi possível realizar o cadastro");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert("Cadastro realizado com sucesso");
+        alert(
+          `Nome: ${nome}\nE-mail: ${email}\nCPF: ${cpf}\nTelefone: ${telefone}\nNúmero do cartão: ${numeroCartao}\nNome do Cartão: ${nomeCartao}\nCVV: ${cvv}\nSenha: ${senha}`
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setFormData({
+          nome: "",
+          endereco: "",
+          telefone: "",
+          cpf: "",
+          email: "",
+          senha: "",
+          numeroCartao: "",
+          nomeCartao: "",
+          cvv: "",
+        });
+      });
+
   };
+
+   
+
+
 
   return (
     <div className="bg-body-tertiary">
@@ -125,6 +172,20 @@ function Cadastro() {
           <div className="col-md-6">
             <h3>Dados do cartão de crédito</h3>
             <form>
+            <div className="mb-3">
+                <label htmlFor="validadeCartao" className="form-label">
+                  Nome do cartão
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="validadeCartao"
+                  placeholder="nome do cartão"
+                  value={formData.nomeCartao}
+                  onChange={handleInputChange}
+                  name="nomeCartao"
+                />
+              </div>
               <div className="mb-3">
                 <label htmlFor="numeroCartao" className="form-label">
                   Número do cartão
@@ -138,20 +199,6 @@ function Cadastro() {
                   onChange={handleInputChange}
                   name="numeroCartao"
                   maxLength={20}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="validadeCartao" className="form-label">
-                  Validade do cartão
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="validadeCartao"
-                  placeholder="MM/AAAA"
-                  value={formData.validadeCartao}
-                  onChange={handleInputChange}
-                  name="validadeCartao"
                 />
               </div>
               <div className="mb-3">
@@ -169,31 +216,51 @@ function Cadastro() {
                   maxLength={3}
                 />
               </div>
+              <hr />
+
+              <div className="mb-3 mt-5">
+                <label htmlFor="email" className="form-label">
+                  email
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Digite seu e-mail"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  name="email"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="senha" className="form-label">
+                  Senha
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="senha"
+                  placeholder="Digite sua senha"
+                  value={formData.senha}
+                  onChange={handleInputChange}
+                  name="senha"
+                />
+              </div>
+
             </form>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6 text-start">
-            <button
-              type="button"
-              className={`btn ${
-                plan === "free" ? "btn-primary" : "btn-outline-primary"
-              } me-2`}
-              onClick={() => setPlan("free")}
-            >
-              Free
-            </button>
-            <button
-              type="button"
-              className={`btn ${
-                plan === "plus" ? "btn-primary" : "btn-outline-primary"
-              } me-2`}
-              onClick={() => setPlan("plus")}
-            >
-              Plus $29,90
-            </button>
-          </div>
-        </div>
+  <div className="col-md-6 text-start">
+    <h3>Foto Perfil</h3>
+    <input
+      type="file"
+      accept="image/*"
+      onChange={'handleImageUpload'}
+    />
+    
+  </div>
+</div>
         <hr></hr>
 
           <Button onClick={handleSubmit} isFormChanged={isFormChanged} clicado={'cadastro concluido'} naoclicado={'Cadastrar'} disabled={true} />
