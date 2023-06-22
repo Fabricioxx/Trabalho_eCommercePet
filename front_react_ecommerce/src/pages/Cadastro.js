@@ -55,6 +55,7 @@ function Cadastro() {
       numeroCartao,
       nomeCartao,
       cvv,
+      token,
     } = formData;
 
       //formData.plano = plan;

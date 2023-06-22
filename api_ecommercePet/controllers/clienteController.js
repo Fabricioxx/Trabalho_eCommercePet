@@ -1,4 +1,5 @@
 const clienteModel = require('../models/clienteModel');
+const auth = require('../auth/auth');
 const fs = require('fs');
 
 class ClienteController {
@@ -30,7 +31,11 @@ class ClienteController {
       
             const max = await clienteModel.findOne({}).sort({ codigo: -1 }).exec(); // exec() retorna uma Promise
             cliente.codigo = max ? max.codigo + 1 : 1;
+
             const resultado = await clienteModel.create(cliente);
+            auth.incluirToken(resultado);
+            
+            
 
            
             res.status(201).json(resultado);

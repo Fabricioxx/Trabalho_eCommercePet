@@ -24,7 +24,7 @@ async function gerarHash(usuario) {
 
 // Autorizar o acesso
 function autorizar(req, res, next) {
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers.authorization; // Authorization: Bearer token 
 
   if (!authHeader) {
     return res.status(401).send({ error: 'O token não foi enviado!' });
@@ -51,6 +51,9 @@ function autorizar(req, res, next) {
     return next();
   });
 }
+
+//https://jwt.io
+//Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.QaphA5Y7kqO83S6l4kek2B9y5lKVIbWOSB0bn325pFc
 
 module.exports = { 
   gerarHash,

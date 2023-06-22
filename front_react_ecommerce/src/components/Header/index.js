@@ -16,7 +16,8 @@ function Header() {
 
   // deslogar o usuario
   function deslogar() {
-    localStorage.removeItem('token');
+    localStorage.clear();
+    
   }
 
   const [dropdownOpen, setDropdownOpen] = useState(false);

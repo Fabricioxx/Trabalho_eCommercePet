@@ -34,6 +34,9 @@ npm i bootstrap-icons // bibliotecas de icones bootstrap
 
 npm install react-bootstrap bootstrap // componentes prontos bootstrap
 
+npm install jsonwebtoken // token
+npm install jwt-decode // token decode
+
 
 npm start
 

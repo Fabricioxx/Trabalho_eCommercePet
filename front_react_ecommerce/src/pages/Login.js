@@ -36,12 +36,10 @@ function Login() {
       .then((data) => {
         alert("Login realizado com sucesso");
 
-        localStorage.setItem("token", data.telefone);
-
+        localStorage.setItem("token", data.token); // armazenar o token no localstorage
+       
+        alert("Token: " + data.token);
         
-
-
-
         navigate("/");
       })
       .catch((err) => {

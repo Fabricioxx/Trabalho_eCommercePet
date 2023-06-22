@@ -8,20 +8,20 @@ class LoginController {
         const { email, senha } = req.body;
       
         try {
-          //const cliente = await clienteModel.findOne({ email });
+          
           const resultado = await clienteModel.findOne({ 'email': email });
       
           if (!resultado) {
             return res.status(400).send({ error: 'Usuário não encontrado!' });
           }
       
-          /*
-          if (!await bcryptjs.compare(senha, cliente.senha)) {
+          
+          if (!await bcryptjs.compare(senha, resultado.senha)) {
               return res.status(400).send({ error: 'Senha inválida!' });
           }
-          */
           
-          // await auth.incluirToken(cliente);
+          
+          await auth.incluirToken(resultado); // incluir o token no objeto cliente
           res.status(200).json(resultado);
         } catch (error) {
           res.status(500).send({ error: 'Erro interno no servidor' });

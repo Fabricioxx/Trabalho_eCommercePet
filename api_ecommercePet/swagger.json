@@ -4,7 +4,18 @@
     "title": "E-Commerce Pet Shop",
     "description": "API para Pet Shop",
     "version": "1.0"
+  },"securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
   },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
   "host": "localhost:3001",
   "basePath": "/",
   "schemes": [

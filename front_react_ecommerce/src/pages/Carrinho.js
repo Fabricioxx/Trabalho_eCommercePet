@@ -2,9 +2,22 @@ import React, { useEffect, useState } from "react";
 import Title from "../components/Title";
 import Header from "../components/Header";
 import Card from "../components/Card";
+import jwt_decode from "jwt-decode";
+
 
 function Carrinho() {
   const [carrinho, setCarrinho] = useState([]);
+  const [cliente, setCliente] = useState({
+    nome: "",
+    endereco: "",
+    telefone: "",
+    cpf: "",
+    email: "",
+    senha: "",
+    numeroCartao: "",
+    nomeCartao: "",
+    cvv: "",
+  });
 
   useEffect(() => {
     const carrinhoString = localStorage.getItem("carrinho");
@@ -12,7 +25,27 @@ function Carrinho() {
       const carrinhoArray = JSON.parse(carrinhoString);
       setCarrinho(carrinhoArray);
     }
-  }, [localStorage.getItem("carrinho")]);
+  }, [localStorage.getItem("carrinho")]); // quando o carrinho for alterado, o useEffect será executado
+
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+
+    if (token) {
+
+      var decoded = jwt_decode(token);
+      
+      //alert(decoded.codigo);
+
+      fetch("http://localhost:3001/clientes/"+decoded.codigo)
+      .then((response) => response.json())
+      .then((data) => {
+        setCliente(data);
+      }
+      );
+    }
+  }, []);
 
   //--------------------------------------------------------------
   const calcularprecoTotal = (produtos) => {
@@ -97,13 +130,13 @@ function Carrinho() {
         <div class="col-md-6">
           <div class="form-group">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" placeholder="Nome" required />
+            <input type="text" class="form-control" id="nome" value={cliente.nome} readonly/>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="endereco">Endereço</label>
-            <input type="text" class="form-control" id="endereco" placeholder="Endereço" required />
+            <input type="text" class="form-control disabled" id="endereco" value={cliente.endereco} readonly />
           </div>
         </div>
       </div>
@@ -112,13 +145,13 @@ function Carrinho() {
         <div class="col-md-6">
           <div class="form-group">
             <label for="nomeCartao">Nome do Cartão</label>
-            <input type="text" class="form-control" id="nomeCartao" placeholder="Nome do Cartão" required />
+            <input type="text" class="form-control disabled" id="nomeCartao" value={cliente.nomeCartao} readonly />
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="numeroCartao">Número do Cartão</label>
-            <input type="text" class="form-control" id="numeroCartao" placeholder="Número do Cartão" required />
+            <input type="text" class="form-control disabled" id="numeroCartao" value={cliente.numeroCartao} readonly/>
           </div>
         </div>
       </div>
