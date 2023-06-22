@@ -36,7 +36,7 @@
             "name": "codigo",
             "in": "formData",
             "description": "Código do cliente",
-            "required": true,
+            "required": false,
             "type": "integer"},
 
           {

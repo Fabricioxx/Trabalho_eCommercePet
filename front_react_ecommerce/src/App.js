@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
      <Router>
-       <Header logado={logado}/>
+       
         <RoutesConfig />
        <Footer />
     </Router>
