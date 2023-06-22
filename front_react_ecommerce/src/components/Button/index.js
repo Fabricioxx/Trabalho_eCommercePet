@@ -18,7 +18,7 @@ function Button(props) {
 
       
 
-    onClick();
+    onClick(); // Executa a função que foi passada como prop
   };
 
   return (

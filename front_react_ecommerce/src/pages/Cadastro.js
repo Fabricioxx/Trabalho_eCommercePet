@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import Header from "../components/Header";
 
 function Cadastro() {
 
-   // stado para verificar se o usuario esta logado
-   const [logado, setLogado] = React.useState(false);
 
   const [formData, setFormData] = useState({
     nome: "",
-    enderec: "",
+    endereco: "",
     telefone: "",
     cpf: "",
     email: "",
@@ -51,6 +49,7 @@ function Cadastro() {
       nome,
       email,
       senha,
+      endereco,
       cpf,
       telefone,
       numeroCartao,
@@ -79,7 +78,7 @@ function Cadastro() {
       .then((data) => {
         alert("Cadastro realizado com sucesso");
         alert(
-          `Nome: ${nome}\nE-mail: ${email}\nCPF: ${cpf}\nTelefone: ${telefone}\nNúmero do cartão: ${numeroCartao}\nNome do Cartão: ${nomeCartao}\nCVV: ${cvv}\nSenha: ${senha}`
+          `Nome: ${nome}\nE-mail: ${email}\nCPF: ${cpf}\nTelefone: ${telefone}\nNúmero do cartão: ${numeroCartao}\nNome do Cartão: ${nomeCartao}\nCVV: ${cvv}\nSenha: ${senha}\nEndereço: ${endereco}`
         );
       })
       .catch((err) => {
@@ -144,6 +143,20 @@ function Cadastro() {
                   value={formData.email}
                   onChange={handleInputChange}
                   name="email"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="Endereço" className="form-label">
+                Endereço
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="endereco"
+                  placeholder="Digite seu Endereço"
+                  value={formData.endereco}
+                  onChange={handleInputChange}
+                  name="endereco"
                 />
               </div>
               <div className="mb-3">

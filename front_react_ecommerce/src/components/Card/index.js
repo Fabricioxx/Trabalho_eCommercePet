@@ -5,87 +5,11 @@ import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from 'react-router-dom';
 
-const datados = [
-  {
-    id: 1,
-    title: "Tênis Nike Air Max 90",
-    description:
-      "O Tênis Nike Air Max 90 é um clássico da marca, que apresenta materiais de qualidade, design autêntico e amortecimento Air Max para garantir o conforto e estilo dos seus pés.",
-    imageSrc:
-      "https://static.netshoes.com.br/produtos/tenis-nike-air-max-90-masculino/26/HZM-1731-026/HZM-1731-026_zoom1.jpg?ts=1584650291&ims=326x",
-  },
-  {
-    id: 2,
-    title: "Tênis Nike Air Max 80",
-    description:
-      "O Tênis Nike Air Max 90 é um clássico da marca, que apresenta materiais de qualidade, design autêntico e amortecimento Air Max para garantir o conforto e estilo dos seus pés.",
-    imageSrc:
-      "https://static.netshoes.com.br/produtos/tenis-nike-air-max-90-masculino/26/HZM-1731-026/HZM-1731-026_zoom1.jpg?ts=1584650291&ims=326x",
-  },
-  {
-    id: 3,
-    title: "Tênis Nike Air Max 100",
-    description:
-      "O Tênis Nike Air Max 90 é um clássico da marca, que apresenta materiais de qualidade, design autêntico e amortecimento Air Max para garantir o conforto e estilo dos seus pés.",
-    imageSrc:
-      "https://static.netshoes.com.br/produtos/tenis-nike-air-max-90-masculino/26/HZM-1731-026/HZM-1731-026_zoom1.jpg?ts=1584650291&ims=326x",
-  },
-  {
-    id: 4,
-    title: "Tênis Nike Air Max 110",
-    description:
-      "O Tênis Nike Air Max 90 é um clássico da marca, que apresenta materiais de qualidade, design autêntico e amortecimento Air Max para garantir o conforto e estilo dos seus pés.",
-    imageSrc:
-      "https://static.netshoes.com.br/produtos/tenis-nike-air-max-90-masculino/26/HZM-1731-026/HZM-1731-026_zoom1.jpg?ts=1584650291&ims=326x",
-  },
-  {
-    id: 5,
-    title: "Tênis Nike Air Max 120",
-    description:
-      "O Tênis Nike Air Max 90 é um clássico da marca, que apresenta materiais de qualidade, design autêntico e amortecimento Air Max para garantir o conforto e estilo dos seus pés.",
-    imageSrc:
-      "https://static.netshoes.com.br/produtos/tenis-nike-air-max-90-masculino/26/HZM-1731-026/HZM-1731-026_zoom1.jpg?ts=1584650291&ims=326x",
-  },
-  {
-    id: 6,
-    title: "Tênis Nike Air Max 130",
-    description:
-      "O Tênis Nike Air Max 90 é um clássico da marca, que apresenta materiais de qualidade, design autêntico e amortecimento Air Max para garantir o conforto e estilo dos seus pés.",
-    imageSrc:
-      "https://static.netshoes.com.br/produtos/tenis-nike-air-max-90-masculino/26/HZM-1731-026/HZM-1731-026_zoom1.jpg?ts=1584650291&ims=326x",
-  },
-  {
-    id: 7,
-    title: "Tênis Nike Air Max 140",
-    description:
-      "O Tênis Nike Air Max 90 é um clássico da marca, que apresenta materiais de qualidade, design autêntico e amortecimento Air Max para garantir o conforto e estilo dos seus pés.",
-    imageSrc:
-      "https://static.netshoes.com.br/produtos/tenis-nike-air-max-90-masculino/26/HZM-1731-026/HZM-1731-026_zoom1.jpg?ts=1584650291&ims=326x",
-  },
-  {
-    id: 8,
-    title: "Tênis Nike Air Max 150",
-    description:
-      "O Tênis Nike Air Max 90 é um clássico da marca, que apresenta materiais de qualidade, design autêntico e amortecimento Air Max para garantir o conforto e estilo dos seus pés.",
-    imageSrc:
-      "https://static.netshoes.com.br/produtos/tenis-nike-air-max-90-masculino/26/HZM-1731-026/HZM-1731-026_zoom1.jpg?ts=1584650291&ims=326x",
-  },
-   {
-    id: 9,
-    title: "Tênis Nike Air Max 160",
-    description:
-      "O Tênis Nike Air Max 90 é um clássico da marca, que apresenta materiais de qualidade, design autêntico e amortecimento Air Max para garantir o conforto e estilo dos seus pés.",
-    imageSrc:
-      "https://static.netshoes.com.br/produtos/tenis-nike-air-max-90-masculino/26/HZM-1731-026/HZM-1731-026_zoom1.jpg?ts=1584650291&ims=326x",
-  }
-   
-]
-
 
 export default function Cards(props) {
 
 
-  const {produtos} = props;
+  const {produtos, categoria} = props;
 
  // converte a imagem para base64
   function imagembase64(imagem){
@@ -104,7 +28,7 @@ export default function Cards(props) {
 
   return (
     <section>
-      <h3>Categoria</h3>
+      <h3>{categoria}</h3>
 
       <div className="carousel-wrapper">
         <Carousel

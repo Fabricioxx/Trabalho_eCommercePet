@@ -2,21 +2,54 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import Button from '../components/Button';
 import Title from '../components/Title';
+import Header from '../components/Header';
 
 
 
 
 function Detalhes() {
     const { codigo } = useParams();
-  
+   const [adicionado, setAdicionado] = useState(false);
     const [produto, setproduto] = useState(null);
     const [erro, setErro] = useState(false);
+
+    function adicionarAoCarrinho(produto) {
+      // Recuperar os dados existentes do carrinho do localStorage
+      const carrinhoString = localStorage.getItem("carrinho");
+      let carrinho = [];
+    
+      if (carrinhoString) {
+        // Se o carrinho já existir no localStorage, converte a string para um array
+        carrinho = JSON.parse(carrinhoString);
+        localStorage.removeItem("carrinho") // romove o carrinho antigo
+      }
+
+      if(adicionado === true){
+
+        return <Button onClick={handleSubmit} isFormChanged={adicionado} clicado="Adicionado" naoclicado="Adicionar ao carrinho" disabled={adicionado} />
+      }else{
+
+        // Adicionar o novo produto ao carrinho
+      carrinho.push(produto);
+      // Converter o carrinho atualizado de volta para uma string
+      const carrinhoAtualizadoString = JSON.stringify(carrinho);
+      // Atualizar o localStorage com o carrinho atualizado
+      localStorage.setItem("carrinho", carrinhoAtualizadoString);
+      
+      setAdicionado(true);
+
+      }
+      
+    }
   
     
    const handleSubmit = (event) => {
      // event.preventDefault();
       alert(`ADICIONADO AO CARRINHO: ${produto.nome}` );
     // filme.selecionado = true;
+
+
+    adicionarAoCarrinho(produto);
     };
 
     function imagembase64(imagem){
@@ -44,7 +77,7 @@ function Detalhes() {
     }, [codigo]);
   
     if (erro) {
-      return <div>Não foi possível obter o filme rrrr.</div>;
+      return <div>Não foi possível obter o Produto rrrr.</div>;
     }
   
     if (!produto) {
@@ -58,7 +91,7 @@ function Detalhes() {
       
 
       <div className="container">
-
+       <Header/>
        <Title title="Detalhes" />
         <div class="row">
           <div class="col-sm-6">

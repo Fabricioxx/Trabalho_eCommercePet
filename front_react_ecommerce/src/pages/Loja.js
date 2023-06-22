@@ -37,7 +37,7 @@ export default function Loja() {
                     <Header/>
                         <Title title="Loja" />
                         <Carrossel />
-                        <Card produtos={listProdutos}/>
+                        <Card produtos={listProdutos} categorio={"categoria"}/>
                     </div>
                 </div>
             </div>
