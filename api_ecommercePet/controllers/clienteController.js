@@ -81,15 +81,17 @@ class ClienteController {
     }
 
 
-    //PUT /clientes/:codigo
+    //PUT /clientes/
     async atualizar(req, res) {
-        const codigo = req.params.codigo; // Converte o ID de string para number
+      //  const codigo = req.params.codigo; // Converte o ID de string para number
+
+        const cliente = req.body;
 
         try {
-            const clienteExistente = await clienteModel.findOne({ 'codigo': codigo});
+            const clienteExistente = await clienteModel.findOne({ 'codigo': cliente.codigo});
     
             if (!clienteExistente) {
-                res.status(404).json({ mensagem: `Nenhum cliente com o ID: ${codigo} encontrado para alteração!` });
+                res.status(404).json({ mensagem: `Nenhum cliente com o ID: ${cliente.codigo} encontrado para alteração!` });
                 return;
             }
     

@@ -9,7 +9,7 @@ const upload = multer({ dest: 'uploads/' }); // Define o diretório onde os arqu
 router.get('/', clienteController.listar);
 router.post('/',upload.single('imagem'), clienteController.cadastrar);
 router.get('/:codigo', clienteController.buscarPorId);
-router.put('/:codigo',upload.single('imagem'), clienteController.atualizar);
+router.put('/',upload.single('imagem'), clienteController.atualizar);
 router.delete('/:codigo', clienteController.excluir);
 
 module.exports = router;

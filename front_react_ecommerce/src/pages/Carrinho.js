@@ -16,7 +16,7 @@ function Carrinho() {
     senha: "",
     numeroCartao: "",
     nomeCartao: "",
-    cvv: "",
+    cvcCartao: "",
   });
 
   useEffect(() => {

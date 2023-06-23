@@ -7,6 +7,7 @@ import Detalhes from './pages/Detalhes';
 import Cadastro from './pages/Cadastro';
 import Login from './pages/Login';
 import Carrinho from './pages/Carrinho';
+import Atualizar from './pages/Atualizar';
 
 
 export default function RoutesConfig() {
@@ -16,6 +17,7 @@ export default function RoutesConfig() {
         <Route path='/detalhes/:codigo' element={<Detalhes/>} />
         <Route path='/cadastrar' element={<Cadastro/>} />
         <Route path='/carrinho' element={<Carrinho/>} /> {/* rota page carrinho */}
+        <Route path='/atualizar' element={<Atualizar/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='*' element={<ErrorPage/>} />
       </Routes>

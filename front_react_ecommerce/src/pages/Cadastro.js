@@ -15,7 +15,7 @@ function Cadastro() {
     senha: "",
     numeroCartao: "",
     nomeCartao: "",
-    cvv: "",
+    cvcCartao: "",
   });
 
   //const [plan, setPlan] = useState("free");
@@ -54,7 +54,7 @@ function Cadastro() {
       telefone,
       numeroCartao,
       nomeCartao,
-      cvv,
+      cvcCartao,
       token,
     } = formData;
 
@@ -79,7 +79,7 @@ function Cadastro() {
       .then((data) => {
         alert("Cadastro realizado com sucesso");
         alert(
-          `Nome: ${nome}\nE-mail: ${email}\nCPF: ${cpf}\nTelefone: ${telefone}\nNúmero do cartão: ${numeroCartao}\nNome do Cartão: ${nomeCartao}\nCVV: ${cvv}\nSenha: ${senha}\nEndereço: ${endereco}`
+          `Nome: ${nome}\nE-mail: ${email}\nCPF: ${cpf}\nTelefone: ${telefone}\nNúmero do cartão: ${numeroCartao}\nNome do Cartão: ${nomeCartao}\nCVV: ${cvcCartao}\nSenha: ${senha}\nEndereço: ${endereco}`
         );
       })
       .catch((err) => {
@@ -95,7 +95,7 @@ function Cadastro() {
           senha: "",
           numeroCartao: "",
           nomeCartao: "",
-          cvv: "",
+          cvcCartao: "",
         });
       });
 
@@ -231,7 +231,7 @@ function Cadastro() {
                   className="form-control"
                   id="cvv"
                   placeholder="Digite o CVV do seu cartão de crédito"
-                  value={formData.cvv}
+                  value={formData.cvcCartao}
                   onChange={handleInputChange}
                   name="cvv"
                   maxLength={3}

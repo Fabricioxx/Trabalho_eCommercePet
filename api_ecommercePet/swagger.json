@@ -125,24 +125,6 @@
           
         }
         
-      }
-    },
-    "/clientes/{codigo}": {
-      "get": {
-        "tags": [
-          "Clientes"
-        ],
-        "summary": "Buscar cliente por ID",
-        "parameters": [
-          {
-            "name": "codigo",
-            "in": "path",
-            "description": "ID do cliente",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {}
       },
       "put": {
         "tags": [
@@ -231,7 +213,26 @@
         "responses": {
           
         }
+      }
+    },
+    "/clientes/{codigo}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Buscar cliente por ID",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "description": "ID do cliente",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {}
       },
+      
       "delete": {
         "tags": [
           "Clientes"
