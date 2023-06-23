@@ -60,13 +60,13 @@ function Login() {
     <div className="container bg-body-tertiary">
       <Title title={"Login"} />
 
-      <section class="d-flex align-items-center py-4" cz-shortcut-listen="true">
-        <main class="form-signin w-100 m-auto d-flex justify-content-center">
+      <section className="d-flex align-items-center py-4" cz-shortcut-listen="true">
+        <main className="form-signin w-100 m-auto d-flex justify-content-center">
           <form onSubmit={handleSubmit}>
             <div class="form-floating">
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 id="floatingInput"
                 placeholder="name@example.com"
                 value={formData.email}
@@ -79,7 +79,7 @@ function Login() {
             <div class="form-floating">
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 id="floatingPassword"
                 placeholder="Password"
                 value={formData.senha}
@@ -90,21 +90,21 @@ function Login() {
               <label for="floatingPassword">Password</label>
             </div>
 
-            <div class="form-check text-start my-3">
+            <div className="form-check text-start my-3">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 value="remember-me"
                 id="flexCheckDefault"
               />
-              <label class="form-check-label" for="flexCheckDefault">
+              <label className="form-check-label" for="flexCheckDefault">
                 Remember me
               </label>
             </div>
-            <button class="btn btn-primary w-100 py-2" type="submit">
+            <button className="btn btn-primary w-100 py-2" type="submit">
               Sign in
             </button>
-            <p class="mt-5 mb-5 text-muted"></p>
+            <p className="mt-5 mb-5 text-muted"></p>
           </form>
         </main>
         <script

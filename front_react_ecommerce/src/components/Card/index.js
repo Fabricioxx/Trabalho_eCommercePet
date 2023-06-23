@@ -1,6 +1,5 @@
 import React from "react";
 import "./style.css";
-//import { Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from 'react-router-dom';
@@ -18,7 +17,7 @@ export default function Cards(props) {
     const blob = new Blob([buffer], { type: "image/jpeg" });
     const url = URL.createObjectURL(blob);
     
-    console.log("URL 64",url);
+    //console.log("URL 64",url);
 
     return url;
   }

@@ -1,35 +1,47 @@
 const pedidoModel = require("../models/pedidoModel");
-const clienteModel = require("../models/clienteModel");
-const produtoModel = require("../models/produtoModel");
+const Produto = require('../models/produtoModel'); // Importe o modelo do produto
+const Cliente = require('../models/clienteModel'); // Importe o modelo do cliente
+
+/*
+const pedidot = {
+  "codigo": 2,
+  "data": "2023-06-23T18:30:05.320Z",
+  "total": 2,
+  "cliente": "6494a9c51f14f0126d8eda0d",
+  "produto": [
+    "649126dfcc01de8a69ed92bb"
+  ],
+  "status": "Enviado"
+};
+*/
 
 class PedidoController {
   // POST /pedido
-  async salvar(req, res) {
-    const max = await pedidoModel.findOne({}).sort({ codigo: -1 });
-    const pedido = req.body;
-    pedido.codigo = max == null ? 1 : max.codigo + 1;
+  async salvar(req, res){
 
-    const cliente = await clienteModel.findOne({ _id: pedido.cliente });
-    pedido.cliente = cliente._id;
-
-    // Verificar se os produtos existem
-    const produtos = await produtoModel.find({ _id: { $in: pedido.produto } });
-
-    if (produtos.length != pedido.produto.length) {
-      return res
-        .status(400)
-        .json({ message: "Um ou mais produtos não existem" });
+    try {
+      const { codigo, data, total, cliente, produto, status } = req.body;
+  
+      // Criar uma nova instância do Pedido com os campos
+      const pedido = new pedidoModel({
+        codigo,
+        data,
+        total,
+        cliente,
+        produto,
+        status
+      });
+  
+      // Salvar o pedido no banco de dados
+      const savedPedido = await pedido.save();
+  
+      res.status(201).json(savedPedido);
+    } catch (error) {
+      res.status(500).json({ error: 'Não foi possível salvar o pedido' });
     }
-
-    // Extrair os IDs dos produtos da lista recebida na requisição
-    const produtosIds = produtos.map((produto) => produto._id);
-
-    // Atribuir a lista de IDs dos produtos ao campo 'produtos' do pedido
-    pedido.produtos = produtosIds;
-
-    const resultado = await pedidoModel.create(pedido);
-    res.status(201).json(resultado);
   }
+
+  
 
   // GET /pedidos
   async listar(req, res) {

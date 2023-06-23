@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Title from "../components/Title";
 import Header from "../components/Header";
 import Card from "../components/Card";
 import jwt_decode from "jwt-decode";
 
-
 function Carrinho() {
+
+  const navigate = useNavigate();
   const [carrinho, setCarrinho] = useState([]);
-  const [cliente, setCliente] = useState({
+  const [pedido, setPedido] = useState({});
+  const [precoTotal, setPrecoTotal] = useState(0);
+  const [clientee, setCliente] = useState({
+    _id: "",
+    codigo: "",
     nome: "",
     endereco: "",
     telefone: "",
@@ -25,149 +31,212 @@ function Carrinho() {
       const carrinhoArray = JSON.parse(carrinhoString);
       setCarrinho(carrinhoArray);
     }
-  }, [localStorage.getItem("carrinho")]); // quando o carrinho for alterado, o useEffect será executado
+  }, []);
 
-  
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-
+    const token = localStorage.getItem("token");
     if (token) {
+      const decoded = jwt_decode(token);
 
-      var decoded = jwt_decode(token);
-      
-      //alert(decoded.codigo);
-
-      fetch("http://localhost:3001/clientes/"+decoded.codigo)
-      .then((response) => response.json())
-      .then((data) => {
-        setCliente(data);
-      }
-      );
+      fetch("http://localhost:3001/clientes/" + decoded.codigo)
+        .then((response) => response.json())
+        .then((data) => {
+          setCliente(data);
+        });
     }
   }, []);
 
-  //--------------------------------------------------------------
-  const calcularprecoTotal = (produtos) => {
-    let precoTotal = 0;
-    produtos.forEach((produto) => {
-      precoTotal += produto.preco;
-    });
-    return precoTotal;
+  const calcularPrecoTotal = (produtos) => {
+    return produtos.reduce((total, produto) => total + produto.preco, 0);
   };
 
-   const quantidadeItens = (produtos) => {
-    let quantidadeItens = 0;
-    produtos.forEach((produto) => {
-        quantidadeItens += 1;
-    });
-    return quantidadeItens;
+  const quantidadeItens = (produtos) => {
+    return produtos.length;
+  };
+
+  const arrayIdsProsutos = (produtos) => {
+
+    const ids = produtos.map((produto) => produto._id);
+
+    return ids;
+  };
+
+  const handleChange = (e) => {
+    setPedido({ ...pedido, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    //const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.QaphA5Y7kqO83S6l4kek2B9y5lKVIbWOSB0bn325pFc"; // Substitua pelo seu token real
+   // Authorization: `Bearer ${token}`,
+
+    const idsProdutos = arrayIdsProsutos(carrinho);
+
+    const Pedido = { ...pedido, total: precoTotal,
+      cliente: clientee._id, produto: idsProdutos, status: "Aguardando Pagamento"
+     };
+
+    setPedido(Pedido);
+  
+    const dados = {
+      codigo: 1,
+      data: "2023-06-23T18:30:05.320+00:00",
+      total: 2,
+      cliente: "6494a9c51f14f0126d8eda0d",
+      produto: ["649126dfcc01de8a69ed92bb"],
+      status: "Aguardando Pagamento"
     };
 
-  //--------------------------------------------------------------
+    fetch("http://localhost:3001/pedidos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dados)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Pedido salvo:", data);
+      })
+      .catch(error => {
+        console.error("Erro ao salvar o pedido:", error);
+      });
 
-  const finalizarPedido = () => {
-    // ...
+
   };
-
   return (
-    <div className="container bg-body-tertiary">
+    <>
       <Header />
       <Title title={"Carrinho"} />
-      {/* grid bootstrap */}
-      <div class="row">
-         <div class="col col-sm-6">
+      <div className="container bg-body-tertiary">
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col col-sm-6">
+              <div className="col-md-5 col-lg-6 order-md-last">
+                <h4 className="d-flex justify-content-between align-items-center mb-3">
+                  <span className="text-primary">Seu carrinho</span>
+                  <span className="badge bg-primary rounded-pill">
+                    {quantidadeItens(carrinho)}
+                  </span>
+                </h4>
+                <ul className="list-group mb-3">
+                  {carrinho.map((produto, index) => (
+                    <li
+                      key={index}
+                      className="list-group-item d-flex justify-content-between lh-sm"
+                    >
+                      <div>
+                        <h6 className="my-0">{produto.nome}</h6>
+                        <small className="text-body-secondary">
+                          {produto.categoria}
+                        </small>
+                      </div>
+                      <span className="text-body-secondary">
+                        $ {produto.preco}
+                      </span>
+                    </li>
+                  ))}
+                  <li className="list-group-item d-flex justify-content-between bg-body-tertiary">
+                    <div className="text-success">
+                      <h6 className="my-0">Promo code</h6>
+                      <small>EXAMPLECODE</small>
+                    </div>
+                    <span className="text-success">$0</span>
+                  </li>
+                  <li className="list-group-item d-flex justify-content-between">
+                    <span>Total (BRL)</span>
+                    <strong>${calcularPrecoTotal(carrinho)}</strong>
+                  </li>
+                </ul>
 
-      {/* card bootstrap */}
-      <div class="col-md-5 col-lg-6 order-md-last">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Seu carrinho</span>
-          <span class="badge bg-primary rounded-pill">{quantidadeItens(carrinho)}</span>
-        </h4>
-        <ul className="list-group mb-3">
-          {carrinho.map((produto, index) => (
-            <li
-              key={index}
-              className="list-group-item d-flex justify-content-between lh-sm"
-            >
-              <div>
-                <h6 className="my-0">{produto.nome}</h6>
-                <small className="text-body-secondary">
-                  {produto.categoria}
-                </small>
+                <form className="card p-2">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Promo code"
+                    />
+                    <button type="submit" className="btn btn-secondary">
+                      Redeem
+                    </button>
+                  </div>
+                </form>
               </div>
-              <span className="text-body-secondary">$ {produto.preco}</span>
-            </li>
-          ))}
-          <li className="list-group-item d-flex justify-content-between bg-body-tertiary">
-            <div className="text-success">
-              <h6 className="my-0">Promo code</h6>
-              <small>EXAMPLECODE</small>
             </div>
-            <span className="text-success">$0</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between">
-            <span>Total (BRL)</span>
-            <strong>${calcularprecoTotal(carrinho)}</strong>
-          </li>
-        </ul>
-
-        <form class="card p-2">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code" />
-            <button type="submit" class="btn btn-secondary">
-              Redeem
-            </button>
+            <div className="col">
+              <h4 className="mb-3">Dados do Cliente</h4>
+              <form className="needs-validation">
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="nome">Nome</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="nome"
+                        value={clientee.nome}
+                        onChange={handleChange}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="endereco">Endereço</label>
+                      <input
+                        type="text"
+                        className="form-control disabled"
+                        id="endereco"
+                        value={clientee.endereco}
+                        onChange={handleChange}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                </div>
+                <h4 className="mt-4 mb-3">Dados do Cartão de Crédito</h4>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="nomeCartao">Nome do Cartão</label>
+                      <input
+                        type="text"
+                        className="form-control disabled"
+                        id="nomeCartao"
+                        value={clientee.nomeCartao}
+                        onChange={handleChange}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="numeroCartao">Número do Cartão</label>
+                      <input
+                        type="text"
+                        className="form-control disabled"
+                        id="numeroCartao"
+                        value={clientee.numeroCartao}
+                        onChange={handleChange}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
+          <hr />
+          <Card produtos={carrinho} categorio={""} />
+          <button className="btn btn-primary" type="submit">
+            Finalizar Pedido
+          </button>
         </form>
       </div>
-      </div>
-    <div class="col">
-        {/*  coluna 2 */}
-        <h4 class="mb-3">Dados do Cliente</h4>
-    <form class="needs-validation">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" value={cliente.nome} readonly/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="endereco">Endereço</label>
-            <input type="text" class="form-control disabled" id="endereco" value={cliente.endereco} readonly />
-          </div>
-        </div>
-      </div>
-      <h4 class="mt-4 mb-3">Dados do Cartão de Crédito</h4>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="nomeCartao">Nome do Cartão</label>
-            <input type="text" class="form-control disabled" id="nomeCartao" value={cliente.nomeCartao} readonly />
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="numeroCartao">Número do Cartão</label>
-            <input type="text" class="form-control disabled" id="numeroCartao" value={cliente.numeroCartao} readonly/>
-          </div>
-        </div>
-      </div>
-      </form>
-
-     
-    </div>
-  </div>
-
-      <hr></hr>
-      <Card produtos={carrinho} categorio={""} />
-      <button className="btn btn-primary" onClick={finalizarPedido}>
-        Finalizar Pedido
-      </button>
-    </div>
+    </>
   );
 }
 
 export default Carrinho;
+
