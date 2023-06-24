@@ -16,6 +16,7 @@ function Cadastro() {
     numeroCartao: "",
     nomeCartao: "",
     cvcCartao: "",
+    imagem:null,
   });
 
   //const [plan, setPlan] = useState("free");
@@ -35,7 +36,27 @@ function Cadastro() {
     setIsFormChanged(true);
   };
       
-  
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const arrayBuffer = reader.result;
+      const buffer = new Uint8Array(arrayBuffer);
+      const data = Array.from(buffer);
+      const contentType = file.type;
+
+      setFormData({
+        ...formData,
+        imagem: {
+          data,
+          contentType,
+        },
+      });
+    };
+
+    reader.readAsArrayBuffer(file);
+  };
 
 
 
@@ -55,7 +76,7 @@ function Cadastro() {
       numeroCartao,
       nomeCartao,
       cvcCartao,
-      token,
+      imagem,
     } = formData;
 
       //formData.plano = plan;
@@ -96,6 +117,7 @@ function Cadastro() {
           numeroCartao: "",
           nomeCartao: "",
           cvcCartao: "",
+          imagem:null,
         });
       });
 
@@ -223,17 +245,17 @@ function Cadastro() {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="cvv" className="form-label">
-                  CVV
+                <label htmlFor="cvc" className="form-label">
+                  cvc
                 </label>
                 <input
                   type="password"
                   className="form-control"
-                  id="cvv"
-                  placeholder="Digite o CVV do seu cartão de crédito"
+                  id="cvcCartao"
+                  placeholder="Digite o CVC do seu cartão de crédito"
                   value={formData.cvcCartao}
                   onChange={handleInputChange}
-                  name="cvv"
+                  name="cvcCartao"
                   maxLength={3}
                 />
               </div>
@@ -277,7 +299,7 @@ function Cadastro() {
     <input
       type="file"
       accept="image/*"
-      onChange={'handleImageUpload'}
+      onChange={handleImageUpload}
     />
     
   </div>

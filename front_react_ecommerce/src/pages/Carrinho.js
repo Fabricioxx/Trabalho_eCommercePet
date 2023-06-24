@@ -77,7 +77,7 @@ function Carrinho() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    //const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.QaphA5Y7kqO83S6l4kek2B9y5lKVIbWOSB0bn325pFc"; // Substitua pelo seu token real
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.QaphA5Y7kqO83S6l4kek2B9y5lKVIbWOSB0bn325pFc"; // Substitua pelo seu token real
    // Authorization: `Bearer ${token}`,
 
     const precoTotal = calcularPrecoTotal(carrinho);
@@ -97,13 +97,14 @@ function Carrinho() {
     fetch("http://localhost:3001/pedidos", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(dados)
     })
       .then(response => response.json())
       .then(data => {
-        console.log("Pedido salvo:", data);
+        alert("Pedido salvo com sucesso!");
       })
       .catch(error => {
         console.error("Erro ao salvar o pedido:", error);

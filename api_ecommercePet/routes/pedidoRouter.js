@@ -3,7 +3,7 @@ const router = express.Router();
 const pedidoController = require('../controllers/pedidoController');
 const auth = require('../auth/auth');
 
-//router.use(auth.autorizar);//autoriza o acesso a rota apenas para usuários logados
+router.use(auth.autorizar);//autoriza o acesso a rota
 
 
 router.post('/', pedidoController.salvar);
