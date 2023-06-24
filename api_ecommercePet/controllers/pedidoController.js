@@ -18,10 +18,9 @@ const pedidot = {
 class PedidoController {
   // POST /pedido
   async salvar(req, res){
-
     try {
       const { codigo, data, total, cliente, produto, status } = req.body;
-  
+
       // Criar uma nova instância do Pedido com os campos
       const pedido = new pedidoModel({
         codigo,
@@ -31,7 +30,8 @@ class PedidoController {
         produto,
         status
       });
-  
+
+    
       // Salvar o pedido no banco de dados
       const savedPedido = await pedido.save();
   

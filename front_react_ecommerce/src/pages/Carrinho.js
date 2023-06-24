@@ -32,6 +32,7 @@ function Carrinho() {
       setCarrinho(carrinhoArray);
     }
   }, []);
+  
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -47,6 +48,7 @@ function Carrinho() {
   }, []);
 
   const calcularPrecoTotal = (produtos) => {
+    
     return produtos.reduce((total, produto) => total + produto.preco, 0);
   };
 
@@ -61,6 +63,13 @@ function Carrinho() {
     return ids;
   };
 
+  const gerarCodigoPedido = () => {
+
+    const codigo = Math.floor(Math.random() * 1000000);
+
+    return codigo;
+  };
+
   const handleChange = (e) => {
     setPedido({ ...pedido, [e.target.name]: e.target.value });
   };
@@ -71,20 +80,17 @@ function Carrinho() {
     //const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.QaphA5Y7kqO83S6l4kek2B9y5lKVIbWOSB0bn325pFc"; // Substitua pelo seu token real
    // Authorization: `Bearer ${token}`,
 
+    const precoTotal = calcularPrecoTotal(carrinho);
     const idsProdutos = arrayIdsProsutos(carrinho);
+    const codigopedido = gerarCodigoPedido();
 
-    const Pedido = { ...pedido, total: precoTotal,
-      cliente: clientee._id, produto: idsProdutos, status: "Aguardando Pagamento"
-     };
-
-    setPedido(Pedido);
-  
+    // dados do pedido
     const dados = {
-      codigo: 1,
-      data: "2023-06-23T18:30:05.320+00:00",
-      total: 2,
-      cliente: "6494a9c51f14f0126d8eda0d",
-      produto: ["649126dfcc01de8a69ed92bb"],
+      codigo: codigopedido,
+      data: new Date(),
+      total: precoTotal,
+      cliente: clientee._id,
+      produto: idsProdutos,
       status: "Aguardando Pagamento"
     };
 
@@ -103,8 +109,8 @@ function Carrinho() {
         console.error("Erro ao salvar o pedido:", error);
       });
 
-
   };
+
   return (
     <>
       <Header />
