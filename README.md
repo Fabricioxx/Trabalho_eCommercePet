@@ -1,4 +1,7 @@
-# Trabalho_eCommercePet
+## Murilo Henrique
+## Fabrício Rosa
+## Erickx Willian Oliveira De Souza
+
 
 
  Especificação: https://docs.google.com/presentation/d/1w3OPSgJkl2ju2ZNDJFrYlgMgPw7Jp6p2AUKVm7fGR-E/edit#slide=id.g1e1428d9ad1_0_0
