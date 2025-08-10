@@ -179,6 +179,41 @@ Explicação rápida:
 - `concurrently` mostra logs etiquetados (API / WEB) com cores.
 
 ---
+## Docker (subir tudo com um comando)
+Pré-requisitos: Docker + Docker Compose.
+
+Construir e subir (API, Front, Mongo):
+```
+docker compose up --build
+```
+Acessos:
+- Frontend: http://localhost:3000
+- API: http://localhost:3001
+- Swagger: http://localhost:3001/api-docs
+- Mongo interno: mongodb://mongo:27017/eCommercePet
+
+Derrubar containers:
+```
+docker compose down
+```
+Remover também volume de dados (atenção: apaga o banco):
+```
+docker compose down -v
+```
+Rebuild apenas de um serviço (ex: frontend):
+```
+docker compose build web
+```
+Logs de um serviço:
+```
+docker compose logs -f api
+```
+
+Variáveis definidas no `docker-compose.yml` podem ser movidas para um arquivo `.env` se preferir (Compose lê automaticamente).
+
+Observação: No ambiente Docker o frontend fala com a API via host máquina (http://localhost:3001) no navegador. Dentro da rede docker, serviços usam `http://api:3001`.
+
+---
 ## Próximas Melhorias (Sugestões)
 - Adicionar middleware de autenticação JWT centralizado.
 - Mover string de conexão Mongo para variável de ambiente.
