@@ -1,3 +1,5 @@
+// Carrega variáveis de ambiente
+require('dotenv').config();
 require('./database/mongodb'); // banco de dados
 var createError = require('http-errors');
 var express = require('express');
