@@ -213,6 +213,20 @@ Variáveis definidas no `docker-compose.yml` podem ser movidas para um arquivo `
 
 Observação: No ambiente Docker o frontend fala com a API via host máquina (http://localhost:3001) no navegador. Dentro da rede docker, serviços usam `http://api:3001`.
 
+### Modo Desenvolvimento (hot reload)
+Foi adicionado `docker-compose.override.yml` com Dockerfiles *.dev*.
+
+Subir com hot reload (usa override automaticamente):
+```
+docker compose up
+```
+Alterações no código (API ou Front) refletem sem rebuild (nodemon + react-scripts).
+
+Se quiser rodar apenas produção (ignorando override), especifique somente o compose principal:
+```
+docker compose -f docker-compose.yml up --build
+```
+
 ---
 ## Próximas Melhorias (Sugestões)
 - Adicionar middleware de autenticação JWT centralizado.

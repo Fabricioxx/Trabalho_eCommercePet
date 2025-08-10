@@ -1,0 +1,26 @@
+# Override para desenvolvimento (hot reload)
+services:
+  api:
+    build:
+      context: ./api_ecommercePet
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./api_ecommercePet:/app
+      - /app/node_modules
+    command: npm run dev
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/eCommercePet
+      - PORT=3001
+      - JWT_SECRET=troque-esta-string-super-secreta
+
+  web:
+    build:
+      context: ./front_react_ecommerce
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./front_react_ecommerce:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_BASE=http://localhost:3001
+    command: npm start
