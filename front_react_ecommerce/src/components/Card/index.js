@@ -12,14 +12,17 @@ export default function Cards(props) {
 
  // converte a imagem para base64
   function imagembase64(imagem){
-    //Uint8Array - Array de 8 bits sem sinal
-    const buffer = new Uint8Array(imagem.data.data);
-    const blob = new Blob([buffer], { type: "image/jpeg" });
-    const url = URL.createObjectURL(blob);
-    
-    //console.log("URL 64",url);
-
-    return url;
+    try {
+      if(!imagem || !imagem.data || !imagem.data.data){
+        return 'https://via.placeholder.com/250?text=Sem+Imagem';
+      }
+      const buffer = new Uint8Array(imagem.data.data);
+      const blob = new Blob([buffer], { type: imagem.contentType || "image/jpeg" });
+      return URL.createObjectURL(blob);
+    } catch(err){
+      console.warn('Falha ao converter imagem', err);
+      return 'https://via.placeholder.com/250?text=Erro+Imagem';
+    }
   }
 
 
@@ -36,24 +39,26 @@ export default function Cards(props) {
           controls={true} // Habilita os controles de navegação
           indicators={false} // Desabilita os indicadores de slide
         >
-          {produtos.map((produto, index) => (
+          {produtos.reduce((slides, produto, idx) => {
+            const slideIndex = Math.floor(idx / 3);
+            if(!slides[slideIndex]) slides[slideIndex] = [];
+            slides[slideIndex].push(produto);
+            return slides;
+          }, []).map((grupo, index) => (
             <Carousel.Item key={index}>
               <div className="row">
-                {produtos
-                  .slice(index, index+3) // Exibe apenas três cards por vez
-                  .map((produto) => (
-                    <div className="col" key={produto.codigo}>
-                      <Card style={{ width: "18rem" }}>
-                        <Card.Img style={{ width: "250px", height: "250px" }} variant="top" src={imagembase64(produto.imagem)} className="img-fluid" />
-                        <Card.Body>
-                          <Card.Title>{produto.nome}</Card.Title>
-                          <Card.Text className="text-truncate" > R$ {produto.preco}</Card.Text>
-                         {/* <Button variant="primary">detalhes</Button>*/} 
-                          <Link to={`/detalhes/${produto.codigo}`}>Detalhes</Link>
-                        </Card.Body>
-                      </Card>
-                    </div>
-                  ))}
+                {grupo.map(p => (
+                  <div className="col" key={p.codigo}>
+                    <Card style={{ width: "18rem" }}>
+                      <Card.Img style={{ width: "250px", height: "250px" }} variant="top" src={imagembase64(p.imagem)} className="img-fluid" />
+                      <Card.Body>
+                        <Card.Title>{p.nome}</Card.Title>
+                        <Card.Text className="text-truncate" > R$ {p.preco}</Card.Text>
+                        <Link to={`/detalhes/${p.codigo}`}>Detalhes</Link>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                ))}
               </div>
             </Carousel.Item>
           ))}

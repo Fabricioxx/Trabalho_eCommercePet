@@ -53,11 +53,18 @@ function Detalhes() {
     };
 
     function imagembase64(imagem){
+      try {
+        if(!imagem || !imagem.data || !imagem.data.data){
+          return 'https://via.placeholder.com/250?text=Sem+Imagem';
+        }
         const buffer = new Uint8Array(imagem.data.data);
-        const blob = new Blob([buffer], { type: "image/jpeg" });
-        const url = URL.createObjectURL(blob);
-        return url;
+        const blob = new Blob([buffer], { type: imagem.contentType || 'image/jpeg' });
+        return URL.createObjectURL(blob);
+      } catch(err){
+        console.warn('Erro ao gerar imagem', err);
+        return 'https://via.placeholder.com/250?text=Erro+Imagem';
       }
+    }
   
   
     useEffect(() => {
