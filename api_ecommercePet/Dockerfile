@@ -1,13 +1,12 @@
-# Backend API Dockerfile
 FROM node:18-alpine
 WORKDIR /app
 
-# Instala dependências
-COPY api_ecommercePet/package*.json ./
+# Copia manifestos e instala apenas prod (pode trocar para npm ci se lock existir)
+COPY package*.json ./
 RUN npm install --production
 
-# Copia código
-COPY api_ecommercePet .
+# Copia restante do código
+COPY . .
 
 ENV NODE_ENV=production \
     PORT=3001

@@ -1,9 +1,9 @@
 # Frontend React Dockerfile (multi-stage)
 FROM node:18-alpine AS build
 WORKDIR /app
-COPY front_react_ecommerce/package*.json ./
+COPY package*.json ./
 RUN npm install
-COPY front_react_ecommerce .
+COPY . .
 RUN npm run build
 
 FROM nginx:1.27-alpine

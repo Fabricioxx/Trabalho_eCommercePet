@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   mongo:
     image: mongo:6
@@ -7,11 +6,10 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    restart: unless-stopped
 
   api:
-    build:
-      context: .
-      dockerfile: api_ecommercePet/Dockerfile
+    build: ./api_ecommercePet
     container_name: ecommerce_api
     environment:
       - MONGODB_URI=mongodb://mongo:27017/eCommercePet
@@ -21,11 +19,10 @@ services:
       - mongo
     ports:
       - "3001:3001"
+    restart: unless-stopped
 
   web:
-    build:
-      context: .
-      dockerfile: front_react_ecommerce/Dockerfile
+    build: ./front_react_ecommerce
     container_name: ecommerce_web
     environment:
       - REACT_APP_API_BASE=http://localhost:3001
@@ -33,6 +30,7 @@ services:
       - api
     ports:
       - "3000:80"
+    restart: unless-stopped
 
 volumes:
   mongo_data:
